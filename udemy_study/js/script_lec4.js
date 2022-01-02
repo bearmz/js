@@ -1,13 +1,22 @@
 "use strict";
 
-let incr = 10,
-    decr = 10;
+const str = "test is text";
 
-incr++;
-decr--;
+console.log(str.toUpperCase());
+console.log(str);
 
-//console.log(decr);
+const fruit = "Some fruit";
 
-//console.log(9%5);
+console.log(fruit.indexOf("fruit"));
 
-console.log(2*2.5 == 6);
+const logg = "Hello World";
+
+console.log(logg.slice(6));
+
+console.log(logg.substring(6, 11));
+
+/// числа
+
+const num = 12.3;
+console.log(Math.round(num));
+

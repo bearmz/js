@@ -1,30 +1,16 @@
-/* Задание на урок:
-
-1) Создать переменную numberOfFilms и в неё поместить ответ от пользователя на вопрос:
-'Сколько фильмов вы уже посмотрели?'
-
-2) Создать объект personalMovieDB и в него поместить такие свойства:
-    - count - сюда передается ответ на первый вопрос
-    - movies - в это свойство поместить пустой объект
-    - actors - тоже поместить пустой объект
-    - genres - сюда поместить пустой массив
-    - privat - в это свойство поместить boolean(логическое) значение false
-
-3) Задайте пользователю по два раза вопросы:
-    - 'Один из последних просмотренных фильмов?'
-    - 'На сколько оцените его?'
-Ответы стоит поместить в отдельные переменные
-Записать ответы в объект movies в формате: 
-    movies: {
-        'logan': '8.1'
-    }
-
-Проверить, чтобы все работало без ошибок в консоли */
-
-
 'use strict';
 
-const numberOfFilms = +prompt("How many films have you saw already", "");
+let numberOfFilms;
+
+function start() {
+    numberOfFilms = +prompt("How many films have you saw already?", "");
+
+    while (numberOfFilms == '' || numberOfFilms == null || isNaN(numberOfFilms)) {
+        numberOfFilms = +prompt("How many films have you saw already?", "");
+    }
+}
+
+start();
 
 const personalMovieDB = {
     count: numberOfFilms,
@@ -34,14 +20,47 @@ const personalMovieDB = {
     privat: false
 };
 
-//це написанні змінні з відповідями
-const a = prompt("One of the last films you watched?", ""),
-      b = prompt("How much would you rate him?", ""),
-      c = prompt("One of the last films you watched?", ""),
-      d = prompt("How much would you rate him?", "");
+function rememberMyFilms() {
+    for (let i = 0; i < 2; i++) {
+        const a = prompt("One of the last films you watched?", ""),
+              b = prompt("How much would you rate him?", "");
+        if (a != null && b != null && a != "" && b != "" && a.length <50) {
+            personalMovieDB.movies [a] = b;
+            console.log("done");
+        } else {
+            console.log("error");
+            i--; // повернення на одну ітерацію верх і повторення циклу!!
+        }
+    }
+}
 
-personalMovieDB.movies [a] = b;
-personalMovieDB.movies [c] = d;
+rememberMyFilms();
 
-console.log(personalMovieDB);
+function detectPerconalLevel() {
+    if (personalMovieDB.count <10){
+        console.log("Not a lot of movies you watch!");
+    } else if (personalMovieDB.count >= 10 && personalMovieDB.count <30){
+        console.log("You are classical watcher!");
+    } else if (personalMovieDB.count >= 30){
+        console.log("YOU ARE FAAAAANNNNN");
+    } else {
+        console.log("nothing!!!");
+    }
+}
 
+detectPerconalLevel();
+
+function showMyDB (hidden) {
+    if (!hidden) {
+        console.log(personalMovieDB);
+    }
+}
+
+showMyDB(personalMovieDB.privat);
+
+function writeYouGenres() {
+    for (let i = 1; i <= 3; i++) {
+        personalMovieDB.genres[i - 1] = prompt(`You favorite genre ${i}`);
+    }
+}
+writeYouGenres();
